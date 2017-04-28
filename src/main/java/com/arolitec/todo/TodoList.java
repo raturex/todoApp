@@ -1,4 +1,4 @@
 package com.arolitec.todo;
 
-public class Task {
+public class TodoList {
 }
