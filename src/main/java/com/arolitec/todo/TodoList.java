@@ -1,4 +1,5 @@
 package com.arolitec.todo;
 
-public class TodoList {
+public class TodoList{
+	
 }
