@@ -1,1 +1,11 @@
 apply plugin : "java"
+jar{
+	version = 0.2
+	manifest{
+		attributes(
+			'Main-Class': 'com.arolitec.todo.TodoList',
+			'Manifest-Version':version,
+			'Class-Path':configurations.compile.collect{ it.getName()}.join(' ')
+		)
+	}
+}
