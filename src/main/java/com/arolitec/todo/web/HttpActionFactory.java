@@ -14,6 +14,8 @@ public class HttpActionFactory {
     public HttpActionFactory(){
         actions.put("/all", new ListAllTasksHttpAction());
         actions.put("/insert", new InsertTaskHttpAction());
+        actions.put("/update", new UpdateTaskHttpAction());
+        actions.put("/delete", new DeleteTaskHttpAction());
     }
 
     public  HttpAction getAction(String servletPath) {

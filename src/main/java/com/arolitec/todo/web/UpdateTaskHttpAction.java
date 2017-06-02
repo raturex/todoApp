@@ -6,16 +6,18 @@ import com.arolitec.todo.repository.TodoRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class InsertTaskHttpAction implements HttpAction{
+public class UpdateTaskHttpAction implements HttpAction{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response, TodoRepository todoRepository)
 			throws Exception {
-		TodoItem todo = new  TodoItem(); 
-		todo.setDescription(request.getParameter("name"));
-		todoRepository.insert(todo);
+		Long todoId = Long.parseLong(request.getParameter("id"));
+		TodoItem todo = todoRepository.findById(todoId);
+		if(todo!=null){
+			todo.setDescription(request.getParameter("name"));
+			todoRepository.update(todo);
+		}	
 		return "/" + request.getParameter("filter");
-		//return "/jsp/todo-list.jsp";
 	}
 
 }
