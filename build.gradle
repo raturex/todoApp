@@ -1,7 +1,11 @@
+import com.arolitec.todo.ProjectVersion
+import com.arolitec.todo.ReleaseVersionTask
+
 apply plugin : 'war'
 apply from : 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
-version = 0.2
 sourceCompatibility = 1.7
+
+ext.versionFile=file('version.properties')
 
 repositories {
     mavenCentral()
@@ -10,8 +14,42 @@ repositories {
 dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     runtime 'javax.servlet:jstl:1.2'
+    
 }
 
 task wrapper (type: Wrapper){
     gradleVersion = '3.4.1'
 }
+
+ProjectVersion readVersion() {
+    logger.quiet 'Reading the version file.'
+
+    if (!versionFile.exists()) {
+        throw new GradleException("Required version file does not exit: $versionFile.canonicalPath")
+    }
+
+    Properties versionProps = new Properties()
+
+    versionFile.withInputStream { stream ->
+        versionProps.load(stream)
+    }
+
+    new ProjectVersion(versionProps.major.toInteger(), versionProps.minor.toInteger(), versionProps.release.toBoolean())
+}
+
+task loadVersion{
+    version = readVersion()
+}
+
+task printVersion{
+   
+    logger.quiet "Version: $version"
+}
+
+task makeReleaseVersion(type: ReleaseVersionTask){
+    dependsOn loadVersion
+    release = version.release
+    destFile = versionFile
+}
+
+
