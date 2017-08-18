@@ -1,0 +1,69 @@
+
+ext.h2TcpPort=8082
+ext.h2StartupBlockMs = 2000
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.h2database:h2:1.4.196'
+    }
+}
+
+task startDatabase(type: H2DatabaseStarter){
+    description = 'start database'
+    group = 'database'
+    
+    tcpPort = h2TcpPort
+    blockMs = h2StartupBlockMs
+}
+
+task stopDatabase(type: JavaExec){
+    description = 'stop database'
+    group = 'database'
+    
+    classpath = buildscript.configurations.classpath
+    main = 'org.h2.tools.Server'
+    args = ['-tcpShutdown',"tcp://localhost:${h2TcpPort}"]
+}
+
+task buildSchema(type: JavaExec, dependsOn: startDatabase){
+     description = 'build database schema'
+    group = 'database'
+    classpath = buildscript.configurations.classpath
+    workingDir = projectDir
+    main = 'org.h2.tools.RunScript'
+    args = ['-url','jdbc:h2:~/todo','-user','sa','-script','createDatabase.sql']
+}
+
+task startAndPrepareDatabase(dependsOn: buildSchema)
+
+
+class H2DatabaseStarter extends DefaultTask{
+    @Input
+    Integer tcpPort
+    
+    @Input
+    Integer blockMs
+    
+    @TaskAction
+    void start(){
+        new Thread(new H2Server(tcpPort)).start()
+        Thread.sleep(blockMs)
+    }
+}
+
+class H2Server implements Runnable{
+    final Integer tcpPort
+
+    H2Server(Integer tcpPort) {
+        this.tcpPort = tcpPort
+    }
+
+    @Override
+    void run() {
+        org.h2.tools.Server.main('-tcp', '-tcpPort', tcpPort.toString())
+    }
+}

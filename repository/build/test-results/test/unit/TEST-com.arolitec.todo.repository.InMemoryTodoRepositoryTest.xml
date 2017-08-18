@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.arolitec.todo.repository.InMemoryTodoRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2017-08-11T18:37:20" hostname="AroliTech-PC" time="0.292">
+  <properties/>
+  <testcase name="testInsertToDoItem" classname="com.arolitec.todo.repository.InMemoryTodoRepositoryTest" time="0.284"/>
+  <testcase name="testFindAllCompleted" classname="com.arolitec.todo.repository.InMemoryTodoRepositoryTest" time="0.001"/>
+  <testcase name="testFindAll" classname="com.arolitec.todo.repository.InMemoryTodoRepositoryTest" time="0.0"/>
+  <testcase name="testDeleteToDoItem" classname="com.arolitec.todo.repository.InMemoryTodoRepositoryTest" time="0.0"/>
+  <testcase name="testFindAllActive" classname="com.arolitec.todo.repository.InMemoryTodoRepositoryTest" time="0.0"/>
+  <testcase name="testUpdateToDoItem" classname="com.arolitec.todo.repository.InMemoryTodoRepositoryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

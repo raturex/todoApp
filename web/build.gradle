@@ -1,0 +1,66 @@
+
+    apply plugin:'war'
+    apply plugin:'groovy'
+    apply from : 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+    
+    ext.seleniumGroup='org.seleniumhq.selenium'
+    ext.seleniumVersion='3.4.0'
+    
+    configurations{
+        funcTestCompile.extendsFrom testCompile
+        funcTestRuntime.extendsFrom testRuntime
+    }
+    repositories {
+        mavenCentral()
+    }
+    
+    dependencies {
+        compile project(':model')
+        compile project(':repository')
+        compile project(':util')
+        providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+        runtime 'javax.servlet:jstl:1.2'
+        
+        testCompile 'org.codehaus.groovy:groovy:2.4.12'
+        testCompile 'junit:junit:4.12'
+        funcTestCompile 'org.gebish:geb-junit4:1.1.1'
+        funcTestCompile "$seleniumGroup:selenium-support:$seleniumVersion"
+        funcTestRuntime "$seleniumGroup:selenium-firefox-driver:$seleniumVersion"
+        
+        
+    }
+    
+sourceSets {
+     functionalTest {
+        groovy.srcDir file('src/funcTest/groovy')
+        resources.srcDir file('src/funcTest/resources')
+        compileClasspath = sourceSets.main.output + configurations.funcTestCompile
+        runtimeClasspath = output + compileClasspath + configurations.funcTestRuntime
+    }
+}
+
+task functionalTest(type: Test ) {
+    description = 'Runs the functional tests.'
+    group = 'verification'
+	ext.httpPort = System.getProperty('gretty.httpPort','8080')
+	ext.contextPath = System.getProperty('gretty.contextPath','web')
+    testClassesDir = sourceSets.functionalTest.output.classesDir
+    classpath = sourceSets.functionalTest.runtimeClasspath
+    reports.html.destination = file("$reports.html.destination/functional")
+    reports.junitXml.destination = file("$reports.junitXml.destination/functional")
+    systemProperty 'geb.env', 'firefox'
+    systemProperty 'geb.build.reportsDir', reporting.file("$name/geb")
+	systemProperty 'geb.build.baseUrl',"http://localhost:$ext.httpPort/$ext.contextPath/all"
+}
+
+gretty{
+    //integrationTestTask = 'functionalTest'
+}
+//check.dependsOn functionalTest
+
+
+
+
+ 
+ 
+

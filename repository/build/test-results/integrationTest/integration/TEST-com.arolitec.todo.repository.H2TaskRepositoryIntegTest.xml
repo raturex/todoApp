@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.arolitec.todo.repository.H2TaskRepositoryIntegTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2017-08-11T18:36:21" hostname="AroliTech-PC" time="5.024">
+  <properties/>
+  <testcase name="testInsertToDoItem" classname="com.arolitec.todo.repository.H2TaskRepositoryIntegTest" time="2.759"/>
+  <testcase name="testFindAllCompleted" classname="com.arolitec.todo.repository.H2TaskRepositoryIntegTest" time="0.646"/>
+  <testcase name="testFindAll" classname="com.arolitec.todo.repository.H2TaskRepositoryIntegTest" time="0.447"/>
+  <testcase name="testDeleteToDoItem" classname="com.arolitec.todo.repository.H2TaskRepositoryIntegTest" time="0.36"/>
+  <testcase name="testFindAllActive" classname="com.arolitec.todo.repository.H2TaskRepositoryIntegTest" time="0.418"/>
+  <testcase name="testUpdateToDoItem" classname="com.arolitec.todo.repository.H2TaskRepositoryIntegTest" time="0.389"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
