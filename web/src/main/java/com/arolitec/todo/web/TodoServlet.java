@@ -22,8 +22,8 @@ import javax.servlet.annotation.WebServlet;
 	 "/toggleStatus", "/clearCompleted"})
 public class TodoServlet extends HttpServlet{
 	
-    private TodoRepository todoRepository = new InMemoryTodoRepository();
-    private HttpActionFactory factory = new HttpActionFactory();
+    private static TodoRepository todoRepository = new InMemoryTodoRepository();
+    private static HttpActionFactory factory = new HttpActionFactory();
     //Logger logger = LoggerFactory.getLogger(TaskerServlet.class);
 
     @Override

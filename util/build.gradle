@@ -1,8 +1,11 @@
 
-    dependencies {
-        compile project(':model')
-        compile project(':repository')
-    }
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile project(':model')
+    compile project(':repository')
+}
 
  
  

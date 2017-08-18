@@ -1,15 +1,19 @@
 apply from: 'setupDatabase.gradle'
+apply plugin: "jacoco"
+//apply plugin: "checkstyle"
+apply plugin: "pmd"
+//apply plugin: "findbugs"
+apply plugin: "jdepend"
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     compile project(':model')
     testCompile 'junit:junit:4.11'
     runtime "com.h2database:h2:1.4.196"
 }
-
-
 
 test {
     exclude '**/*IntegTest.class'
@@ -37,6 +41,8 @@ task integrationTest(type: Test ) {
     finalizedBy stopDatabase
 }
 
+
+
 tasks.withType(Test) {
     testLogging {
         showStandardStreams = true
@@ -44,4 +50,9 @@ tasks.withType(Test) {
     }
 }
 
+
 check.dependsOn integrationTest
+
+jacocoTestReport {   
+	executionData(test,integrationTest)
+}

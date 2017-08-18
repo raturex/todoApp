@@ -1,3 +1,9 @@
+plugins {
+    id "org.sonarqube" version "2.5"
+}
+
+apply from : 'jelastic.gradle'
+
 ext.projectIds = ['group':'com.arolitec.todo','version':'0.3']
 
 allprojects{

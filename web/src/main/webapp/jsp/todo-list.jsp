@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Tasker application</title>
+    <title></title>
     <link rel="stylesheet" href="<c:url value="css/base.css"/>">
 </head>
 <body>
